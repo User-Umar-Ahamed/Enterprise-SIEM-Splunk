@@ -18,14 +18,12 @@
 ## 📖 Table of Contents
 
 - [Project Overview](#-project-overview)
-- [Architecture](#-architecture)
 - [Log Sources Analysed](#-log-sources-analysed)
 - [Project Phases](#-project-phases)
 - [Detections Built](#-detections-built)
 - [Key Findings](#-key-findings)
 - [SPL Quick Reference](#-spl-quick-reference)
 - [Skills Demonstrated](#-skills-demonstrated)
-- [Future Enhancements](#-future-enhancements)
 - [Author](#-author)
 
 ---
@@ -47,29 +45,6 @@ This project is a **fully deployed Splunk SIEM investigation platform** — a wo
 | 08 | Cloudflare Dashboard | WAF Challenge/Block Monitoring Dashboard |
 
 ---
-
-## 🏗️ Architecture
-
-```
-┌──────────────────────────────────────────────────────────────┐
-│              Splunk Enterprise (Ubuntu Server)               │
-│                                                              │
-│  ┌──────────┐ ┌──────────┐ ┌───────────┐ ┌──────────────┐  │
-│  │ssh_logs  │ │dns_logs  │ │http_logs  │ │Cloudflare    │  │
-│  │LOG01+02  │ │1,200 evts│ │3,000 evts │ │http_logs     │  │
-│  └──────────┘ └──────────┘ └───────────┘ └──────────────┘  │
-│                                                              │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │               SPL Detection Layer                   │    │
-│  │  Brute Force │ SQLi │ XSS │ LFI │ WAF │ DGA │ C2   │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                                                              │
-│  ┌─────────────────┐ ┌──────────────────┐ ┌─────────────┐  │
-│  │ SSH Dashboard   │ │ Web Traffic      │ │ Cloudflare  │  │
-│  │ (Live Panels)   │ │ Dashboard + Geo  │ │ Dashboard   │  │
-│  └─────────────────┘ └──────────────────┘ └─────────────┘  │
-└──────────────────────────────────────────────────────────────┘
-```
 
 ---
 
@@ -192,19 +167,7 @@ index=http_logs | iplocation id.orig_h
 | **Threat Detection** | Brute force, SQLi, XSS, LFI, WAF analysis, compromised account ID |
 | **Alert Engineering** | Real-time alert, threshold tuning, throttle configuration |
 | **Dashboard Building** | Classic Dashboard XML, time tokens, panels, colour thresholds, geo maps |
-| **Web Security** | OWASP Top 10 — Injection, Auth Failures, Broken Access Control |
 | **Cloudflare/WAF** | Edge log analysis, WAF rule interpretation, challenge vs block analysis |
-
----
-
-## 🚀 Future Enhancements
-
-- [ ] **Universal Forwarder** — replace uploads with real-time log streaming from live endpoints
-- [ ] **Scheduled Alerts** — convert all detections into cron-scheduled saved searches with email notifications
-- [ ] **Lookup Enrichment** — add AbuseIPDB and VirusTotal CSV lookups for threat intelligence context
-- [ ] **MITRE ATT&CK Mapping** — tag each detection with the corresponding ATT&CK technique ID
-- [ ] **Splunk ES** — migrate detections to Enterprise Security notable event workflows
-- [ ] **Wazuh Integration** — add FIM and host-based IDS events to the platform
 
 ---
 
